@@ -13,6 +13,7 @@
       <button onclick="logout()" class="btn btn-outline-danger btn-sm">Logout</button>
     </div>
 
+    <!-- Form Tambah Proyek -->
     <form id="formProject">
       <div class="mb-3">
         <label for="judul" class="form-label">Judul Proyek</label>
@@ -29,13 +30,20 @@
       <button type="submit" class="btn btn-primary">Simpan Proyek</button>
     </form>
 
+    <!-- Alert -->
     <div id="alert" class="alert mt-4 d-none" role="alert"></div>
+
+    <!-- Daftar Proyek -->
+    <div class="mt-5">
+      <h4>Daftar Proyek</h4>
+      <div class="row" id="projectList"></div>
+    </div>
   </div>
 
   <script type="module" src="admin.js"></script>
   <script>
     function logout() {
-      localStorage.removeItem("user");
+      localStorage.removeItem("admin");
       window.location.href = "login.html";
     }
   </script>

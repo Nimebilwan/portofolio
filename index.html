@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portofolio Saya</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
+  <style>
+    body {
+      background-color: #f8f9fa;
+    }
+    .hero {
+      background: url('https://source.unsplash.com/1600x900/?nature,water') no-repeat center center;
+      background-size: cover;
+      height: 100vh;
+      color: white;
+    }
+    .hero h1 {
+      font-size: 3rem;
+      font-weight: bold;
+    }
+    .hero p {
+      font-size: 1.5rem;
+    }
+    .portfolio-item {
+      transition: transform 0.3s;
+    }
+    .portfolio-item:hover {
+      transform: scale(1.05);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Hero Section -->
+  <section class="hero d-flex justify-content-center align-items-center text-center">
+    <div>
+      <h1>Selamat Datang di Portofolio Saya</h1>
+      <p>Saya adalah <strong>[Nama Anda]</strong>, seorang <strong>[Profesi Anda]</strong></p>
+      <a href="#portfolio" class="btn btn-primary btn-lg">Lihat Portofolio</a>
+    </div>
+  </section>
+
+  <!-- About Section -->
+  <section class="py-5 text-center" id="about">
+    <div class="container">
+      <h2>Tentang Saya</h2>
+      <p class="lead">Saya adalah seorang [Profesi Anda] dengan pengalaman dalam [Bidang Keahlian]. Saya mencintai apa yang saya lakukan dan selalu berusaha untuk memberikan yang terbaik.</p>
+    </div>
+  </section>
+
+  <!-- Portfolio Section -->
+  <section class="py-5" id="portfolio">
+    <div class="container">
+      <h2 class="text-center mb-5">Portofolio Saya</h2>
+      <div class="row" id="projectContainer">
+        <!-- Project cards will be injected here by script.js -->
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section class="py-5 text-center" id="contact">
+    <div class="container">
+      <h2>Kontak Saya</h2>
+      <p class="lead">Jika Anda ingin menghubungi saya, silakan kirim pesan melalui formulir di bawah ini.</p>
+      <form>
+        <div class="mb-3">
+          <input type="text" class="form-control" placeholder="Nama" required>
+        </div>
+        <div class="mb-3">
+          <input type="email" class="form-control" placeholder="Email" required>
+        </div>
+        <div class="mb-3">
+          <textarea class="form-control" rows="4" placeholder="Pesan" required></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">Kirim Pesan</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="text-center py-4">
+    <p>&copy; 2025 Fti.</p>
+  </footer>
+
+  <script type="module" src="script.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

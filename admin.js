@@ -32,7 +32,7 @@ async function uploadProject(e) {
   const gambar_url = urlData.publicUrl;
 
   const { error: insertError } = await supabase
-    .from("projects")
+    .from("portofolio")
     .insert({ judul, deskripsi, gambar_url });
 
   if (insertError) {

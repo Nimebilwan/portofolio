@@ -1,28 +1,22 @@
 import { supabase } from "./config.js";
 
-const container = document.getElementById("projectContainer");
+document.addEventListener("DOMContentLoaded", async () => {
+  const { data, error } = await supabase.from("projects").select("*");
 
-async function tampilkanProject() {
-  const { data, error } = await supabase
-    .from("projects")
-    .select("*")
-    .order("id", { ascending: false });
+  const list = document.getElementById("projectList");
+  list.innerHTML = "";
 
-  if (error) return console.error("Gagal ambil data:", error);
-
-  data.forEach(project => {
-    container.innerHTML += `
+  data.forEach((p) => {
+    list.innerHTML += `
       <div class="col-md-4 mb-4">
-        <div class="card portfolio-item">
-          <img src="${project.gambar_url}" class="card-img-top" alt="${project.judul}">
+        <div class="card">
+          <img src="${p.gambar_url}" class="card-img-top" style="height: 200px; object-fit: cover;">
           <div class="card-body">
-            <h5 class="card-title">${project.judul}</h5>
-            <p class="card-text">${project.deskripsi}</p>
+            <h5 class="card-title">${p.judul}</h5>
+            <p class="card-text">${p.deskripsi}</p>
           </div>
         </div>
       </div>
     `;
   });
-}
-
-tampilkanProject();
+});

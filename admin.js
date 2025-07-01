@@ -53,7 +53,7 @@ function showAlert(msg, type) {
 }
 
 async function loadProjects() {
-  const { data, error } = await supabase.from("projects").select("*").order("id", { ascending: false });
+  const { data, error } = await supabase.from("portofolio").select("*").order("id", { ascending: false });
   const container = document.getElementById("projectList");
   container.innerHTML = "";
 

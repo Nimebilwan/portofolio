@@ -3,11 +3,15 @@ import { supabase } from "./config.js";
 const admin = JSON.parse(localStorage.getItem("admin"));
 if (!admin) window.location.href = "login.html";
 
+window.logout = () => {
+  localStorage.removeItem("admin");
+  location.href = "login.html";
+};
+
 document.getElementById("formProject").addEventListener("submit", uploadProject);
 
 async function uploadProject(e) {
   e.preventDefault();
-
   const judul = document.getElementById("judul").value;
   const deskripsi = document.getElementById("deskripsi").value;
   const file = document.getElementById("gambar").files[0];
@@ -19,64 +23,48 @@ async function uploadProject(e) {
     .from("project-images")
     .upload(fileName, file);
 
-  if (uploadError) {
-    showAlert("Gagal upload gambar!", "danger");
-    return;
-  }
+  if (uploadError) return alert("Gagal upload gambar!");
 
-  const { data: urlData } = supabase
-    .storage
+  const { data: urlData } = supabase.storage
     .from("project-images")
     .getPublicUrl(fileName);
 
   const gambar_url = urlData.publicUrl;
 
-  const { error: insertError } = await supabase
-    .from("portofolio")
-    .insert({ judul, deskripsi, gambar_url });
+  const { error: insertError } = await supabase.from("portofolio").insert({
+    judul, deskripsi, gambar_url
+  });
 
   if (insertError) {
-    showAlert("Gagal menyimpan proyek!", "danger");
+    alert("Gagal simpan proyek");
   } else {
-    showAlert("Proyek berhasil ditambahkan!", "success");
+    alert("Proyek berhasil ditambahkan!");
     document.getElementById("formProject").reset();
     loadProjects();
   }
 }
 
-function showAlert(msg, type) {
-  const alertBox = document.getElementById("alert");
-  alertBox.className = `alert alert-${type}`;
-  alertBox.innerText = msg;
-  alertBox.classList.remove("d-none");
-  setTimeout(() => alertBox.classList.add("d-none"), 3000);
-}
-
 async function loadProjects() {
-  const { data, error } = await supabase.from("portofolio").select("*").order("id", { ascending: false });
-  const container = document.getElementById("projectList");
+  const { data, error } = await supabase.from("portofolio").select("*").order("judul", { ascending: true });
+  const container = document.getElementById("listProject");
   container.innerHTML = "";
 
-  if (error || !data) {
-    container.innerHTML = "<p class='text-danger'>Gagal memuat proyek</p>";
-    return;
-  }
+  if (error) return;
 
-  data.forEach(project => {
-    const col = document.createElement("div");
-    col.className = "col-md-4 mb-4";
-    col.innerHTML = `
+  data.forEach(proyek => {
+    const card = document.createElement("div");
+    card.className = "col-md-4 mb-4";
+    card.innerHTML = `
       <div class="card h-100">
-        <img src="${project.gambar_url}" class="card-img-top" style="height: 200px; object-fit: cover;" alt="${project.judul}">
+        <img src="${proyek.gambar_url}" class="card-img-top" style="height: 200px; object-fit: cover;" alt="gambar">
         <div class="card-body">
-          <h5 class="card-title">${project.judul}</h5>
-          <p class="card-text">${project.deskripsi}</p>
+          <h5 class="card-title">${proyek.judul}</h5>
+          <p class="card-text">${proyek.deskripsi}</p>
         </div>
       </div>
     `;
-    container.appendChild(col);
+    container.appendChild(card);
   });
 }
 
-// Auto load saat halaman terbuka
 loadProjects();

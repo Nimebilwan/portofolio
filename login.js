@@ -1,6 +1,12 @@
 import { supabase } from "./config.js";
 
-window.login = async function () {
+document.getElementById("loginForm").addEventListener("submit", async function(e) {
+  e.preventDefault();
+
+  const loginBtn = document.getElementById("loginBtn");
+  loginBtn.disabled = true; // Disable tombol saat proses dimulai
+  loginBtn.textContent = 'Logging in...'; // Ubah teks tombol
+
   const email = document.getElementById("email").value;
   const password = document.getElementById("password").value;
 
@@ -13,8 +19,10 @@ window.login = async function () {
 
   if (error || !data) {
     alert("Login gagal, cek email dan password!");
+    loginBtn.disabled = false; // Aktifkan kembali tombol
+    loginBtn.textContent = 'Login'; // Kembalikan teks tombol
   } else {
     localStorage.setItem("admin", JSON.stringify(data));
     window.location.href = "admin.html";
   }
-};
+});
